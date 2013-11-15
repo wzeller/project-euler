@@ -15,7 +15,7 @@ require 'mathn'
 #In other words, for a matrix of [a , b]
 #                                [c,  d]
 #
-#transpose returns 				 [a, c]
+#transpose returns 				       [a, c]
 #                                [b, d]
 #
 #This allows separating out the primes into a separate array.
