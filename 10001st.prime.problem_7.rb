@@ -1,33 +1,49 @@
-def countPrimes (nthPrime)
-	
-	primes = 1
-	number = 3
-	primesList = [2]
-	nonprimesList = []
-	prime = 1
+#10001st prime
+#Problem 7
+#By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, 
+#we can see that the 6th prime is 13.
+#
+#What is the 10 001st prime number?
 
-	while primes < nthPrime
-	
-	    prime = 1
+def isPrime(number)
 
-		for n in primesList
-			if number % n == 0
-		    	prime = 0
-		    end
-		end
+#test if a number is divisible by any numbers up to its 
+#square root (if it divisible by a number greater than
+#its square root, it will also be divisible by a number
+#less than its square root, so we can stop the search there)
 
-		if prime == 1
-	    	primesList << number 
-	    	primes += 1
-		end
-	
-	number += 1
+if number == 2
+	return false
+end
 
+for n in (2..Math.sqrt(number))
+	if number % n == 0
+		return false
 	end
+end
 
-puts primesList.last
+return true
 
 end
 
-countPrimes(10001)
+def whatIsTheXthPrime?(x)
 
+primes = [2]
+number = 3
+
+until primes.length == x
+
+	if isPrime(number) == true
+		primes << number
+		number += 1
+	else
+		number += 1
+	end
+
+end
+
+puts primes[-1]
+
+end
+
+whatIsTheXthPrime?(10001)
