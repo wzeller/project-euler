@@ -12,11 +12,8 @@ require 'mathn'
 #exponents) for the number.  The function returns a multi-dimensional array 
 #with pairs of primes and their exponent powers.  
 #I use the transpose method, which switches the rows and columns.  
-#In other words, for a matrix of [a , b]
-#                                [c,  d]
-#
-#transpose returns 				       [a, c]
-#                                [b, d]
+#In other words, it changes a matrix of [a , b]  to [a, c]
+#                                       [c,  d]     [b, d]
 #
 #This allows separating out the primes into a separate array.
 #Then I print the highest number in the resulting array.
