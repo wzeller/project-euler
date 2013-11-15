@@ -28,6 +28,15 @@ end
 
 def whatIsTheXthPrime?(x)
 
+#Increment numbers (starting at 3) until the number of primes in the 
+#array primes = x.  The test uses the method isPrime to test whether
+#each number is prime.  If it is, it is added to the array.  If not,
+#it is not.  Either way, the program will continue incrementing, testing,
+#and adding numbers to the array of primes until it reaches the xth prime,
+#at which point it will print the -1st, or last, entry in the array.
+
+#This program finds the answer (104743) in 2.7 seconds.
+
 primes = [2]
 number = 3
 
