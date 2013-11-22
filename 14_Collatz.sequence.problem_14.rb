@@ -31,6 +31,7 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 #so that it can be used in later calculations (this improves the speed by a factor
 #of eight).
 
+#Finds the solution (837799) in 10.8 seconds.
 
 def longestCollatzChainUnderNumber(number)
 
