@@ -79,7 +79,7 @@ terms = 0
 
 end
 
-#Selects the key and value associate with the max value and prints them.
+#Selects the key and value associated with the max value and prints them.
 
 puts collatzLength.max_by{|k,v| v}
 
