@@ -1,3 +1,1 @@
-This repository contains my ruby scripts solving the first 50 problems in Project Euler (http://projecteuler.net/).  
-(I also solved problem 67, which is a variant of 18.) I used this as a way to learn some basic concepts in Ruby and 
-become familiar with using code to solve problems.
+This repository contains my ruby scripts solving the first 50 problems in Project Euler (http://projecteuler.net/). (I also solved problem 67, which is a variant of 18.) I used this as a way to learn some basic concepts in Ruby and become familiar with using code to solve problems.
