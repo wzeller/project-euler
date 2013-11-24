@@ -16,56 +16,75 @@ with British usage.
 
 =end
 
-#The following code is basically a dictionary and a loop that converts the hundreds, 
-#tens and ones digits to words and adds "and" as necessary.  It's not the most elegant
-#code, but it finds the solution, 21124, in 0.1 seconds.
 
-def numbersToWords
+#My code is a hash coupled with a loop that breaks down numbers into their 
+#constituent digits, translates those digits to words using the hash, 
+#prints the result, and increments a "words" variable with the lengths of the words.  
+#The end of the program outputs how many letters were used.
 
-numbers = {1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five", 6 => "six", 7 => "seven", 8 => "eight", 9 => "nine", 10 => "ten", 11 => "eleven", 12 => "twelve", 13 => "thirteen", 14 => "fourteen", 15 => "fifteen", 16 => "sixteen", 17 => "seventeen", 18 => "eighteen", 19 => "nineteen", 20 => "twenty", 30 => "thirty", 40 => "forty", 50 => "fifty", 60 => "sixty", 70 => "seventy", 80 => "eighty", 90 => "ninety", 100 => "hundred", 1000 => "onethousand"}
-numberToWords = []
+#Note: only works up to 20999 because I did not program in functionality for "twenty one thousand." 
 
-for n in 1..1000
-	if n >= 100 && n < 1000
-		hundreds = (n.to_i/100) * 100
-		hundreds = hundreds / 100
-		numberToWords << numbers.fetch(hundreds) + numbers.fetch(100)
-			if n - (hundreds * 100) != 0
-				numberToWords << "and"
-			end
-		tens = n - (hundreds * 100)
-			if tens != 0
-				tens = (tens.to_i/10) * 10
-				if tens < 20
-					numberToWords << numbers.fetch(n-(hundreds * 100))
-				else
-					numberToWords << numbers.fetch(tens)
-					ones = n - (hundreds * 100) - tens
-					if ones != 0
-						numberToWords << numbers.fetch(ones)
-					end
-				end
-			end
-	end
-	if n < 100
-		tens = ((n.to_i/10) * 10)
-		if tens < 20
-					numberToWords << numbers.fetch(n)
-				else
-					numberToWords << numbers.fetch(tens)
-					ones = n - tens
-					if ones != 0
-						numberToWords << numbers.fetch(ones)
-					end
-				end
-		end
-	if n == 1000
-		numberToWords << numbers.fetch(n)
-	end
+#The following code finds the solution for 1 to 1000 (21124) in 0.0 seconds.
+
+def numbersToWords(a,b)
+
+numbers = {0 => "", 1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five"} 
+numbers.merge! 6 => "six", 7 => "seven", 8 => "eight", 9 => "nine", 10 => "ten"
+numbers.merge! 11 => "eleven", 12 => "twelve", 13 => "thirteen", 14 => "fourteen" 
+numbers.merge! 15 => "fifteen", 16 => "sixteen", 17 => "seventeen", 18 => "eighteen" 
+numbers.merge! 19 => "nineteen", 20 => "twenty", 30 => "thirty", 40 => "forty" 
+numbers.merge! 50 => "fifty", 60 => "sixty", 70 => "seventy", 80 => "eighty", 90 => "ninety" 
+numbers.merge! 100 => "hundred", 1000 => "thousand"
+words = 0
+
+for n in (a..b)
+
+thousands = n/1000
+hundredsAndTensAndOnes = n % 1000
+hundreds = (hundredsAndTensAndOnes / 100) * 100
+tensAndOnes = hundredsAndTensAndOnes - hundreds
+tens = (tensAndOnes / 10) * 10
+ones = tensAndOnes - tens
+
+if thousands != 0 
+print "#{numbers[thousands]} thousand "
+words += numbers[thousands].length
+words += numbers[1000].length
 end
 
-puts numberToWords.join.length
+if thousands != 0 && hundreds == 0 && tensAndOnes != 0
+print "and "
+words += 3
+end
+
+if hundreds != 0
+print "#{numbers[hundreds/100]} hundred "
+words += numbers[hundreds/100].length
+words += numbers[100].length
+end
+
+if hundreds != 0 && tensAndOnes != 0
+print "and "
+words += 3
+end
+
+if tensAndOnes > 19
+print "#{numbers[tens]} #{numbers[ones]}"
+words += numbers[tens].length
+words += numbers[ones].length
+end
+
+if tensAndOnes < 20
+print "#{numbers[tensAndOnes]}"
+words += numbers[tensAndOnes].length
+end
+
+puts ""
 
 end
 
-numbersToWords
+print "There are #{words} letters in the written-out numbers between #{a} and #{b} (inclusive)."
+
+end
+
+numbersToWords(1,1000)
