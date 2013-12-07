@@ -28,7 +28,7 @@ recurring cycle in its decimal fraction part.
 #1/1000, stores the length of the repeating decimals, and outputs
 #the largest one.  
 
-#This code find the answer, 1/983, in .9 seconds.
+#This code finds the answer, 1/983, in .9 seconds.
 
 def longestRepeatingDecimalLengthfortheFractionOneOverX(x)
 
