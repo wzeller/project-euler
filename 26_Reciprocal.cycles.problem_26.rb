@@ -165,6 +165,3 @@ puts "is the fraction with the longest repeating decimal sequence"
 end
 
 determineLongestRepeatingDecimalinOneOver2toOneOverOneThousand
-
-
-
