@@ -49,9 +49,11 @@ def longestRepeatingDecimalLengthfortheFractionOneOverX(x)
 
 	digits = x.to_s.length
 	
-#The following loop is because 10 should be with 1..9, as should 100, etc., 
-#in number of 0s after the decimal place as well as the first division
-#in long division.  The code accomplishes this by creating a digits variable
+#The following loop is because 10 should be grouped with 1..9, as should 100, etc., 
+#because they share the number of 0s after the decimal place as well as the first division
+#in long division.  This is an exception to the rule that
+#other numbers with the same number of digits have the 
+#same number of zeros after the decimal.  The code accomplishes this by creating a digits variable
 #equal to the number of digits in x (1/x) with an exception for multiples
 #of ten.
 
@@ -61,22 +63,22 @@ def longestRepeatingDecimalLengthfortheFractionOneOverX(x)
 
 #firstDigit is a variable equal to the first step in a long division 1/x.
 #E.g., if x is 3, the first digit is equal to 10 (10^1) divided by 3.
-#Because math is automatically only the integer portion of a division, 
+#Because ruby's math is automatically only the integer portion of a division, 
 #10/3 = 3.
 
 	firstDigit = (10 ** digits) / x
 
 #fullExpansion creates the start for all decimal appx. of 1/x by 
-#starting with 0. and adding the number of 0s equal to number of "digit"
+#starting with "0." and adds the number of 0s equal to number of "digit"
 #minus one.  In other words, for 1/3, because there is only 1 digit, 
 #no 0s are added following the decimal and the first number is 
 #firstDigit, or 3.  We can see why 10 is an exception, because 
 #the decimal approx. for it, like 2..9, is .1, with no 0s between
-#decimal and firstDigit.
+#decimal and firstDigit.  (The above line corrects for this.)
 
 	fullExpansion = "0" + "." + "0" * (digits-1) + firstDigit.to_s
 
-#Create array to add each additional digit to.
+#Next I create array to add each additional digit to.
 
 	fullExpansionArray = [fullExpansion.to_f]
 
@@ -93,7 +95,9 @@ def longestRepeatingDecimalLengthfortheFractionOneOverX(x)
 	remainders = []
 
 #k is the counter variable to count the number of digits without a 
-#repetition.
+#repetition.  In other words, every time the long division repeats
+#without the same remainder, the number of digits in the
+#decimal expression of the fraction 1/x, k, goes up by one.
 
 	k = 0
 
@@ -120,7 +124,7 @@ def longestRepeatingDecimalLengthfortheFractionOneOverX(x)
 
 		remainder = (remainder - (x*firstDigit))*10
 
-#Calculates the next digit (misleadingly called "firstDigit") in the 
+#Calculates the next digit (called "firstDigit") in the 
 #decimal.
 
 		firstDigit = remainder / x
@@ -144,14 +148,14 @@ def determineLongestRepeatingDecimalinOneOver2toOneOverOneThousand
 
 	decimalArray = []
 
-#Loops through the numbers 1/2 through 1/1000 and stores their 
+#Next loop through the numbers 1/2 through 1/1000 and store their 
 #repeating decimal lengths into an array.
 
 for n in 2..1000
 	decimalArray << longestRepeatingDecimalLengthfortheFractionOneOverX(n)
 end
 
-#Outputs the index number (+2 because we start at 2 and the first index
+#Last output the index number (+2 because we start at 2 and the first index
 #is 0) for the highest number of repetitions in the array.  The index is 
 #x in the form 1/x.  
 
@@ -161,6 +165,3 @@ puts "is the fraction with the longest repeating decimal sequence"
 end
 
 determineLongestRepeatingDecimalinOneOver2toOneOverOneThousand
-
-
-
