@@ -1,28 +1,30 @@
 =begin
 Coin sums
 Problem 31
-In England the currency is made up of pound, £, and pence, p, and there are eight coins in general circulation:
+In England the currency is made up of pound, £, and pence, p, 
+and there are eight coins in general circulation:
 
 1p, 2p, 5p, 10p, 20p, 50p, £1 (100p) and £2 (200p).
+
 It is possible to make £2 in the following way:
 
 1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
+
 How many different ways can £2 be made using any number of coins?
 =end
 
 #This was one of the most difficult problems, particularly to answer
 #without a lot of code and reasonably quickly.  The key insight
-#is that any given value can either be made with, or without, a 
-#certain coin.  To calculate how many ways a value can be made,
-#one can start with a list one longer than the value for which we
-#want to make change (0 can be made one way), then cycle through 
-#each coin (starting at the amount of the coin), adding the 
-#number of ways the value could be made NOT using that coin.
-#The process is repeated with each coin, which will result in a 
-#list where the nth element is equal to the number of ways the
-#value n could be made using the coins provided.
+#is that any given value (between 1p and 200p) can either be made with, 
+#or without, a certain coin.  For example, 2p can either be made with
+#all 1s -- 1 way -- or with a 2 and ones -- 1 way -- for 2 total ways.
+#Similarly, 5 can be made with all 1s -- 1 way -- with 2s and 1s -- 
+#2 ways -- or with a 5p coins -- 1 way -- for 4 total ways.  This
+#problem is thus solvable by moving from 1p up to 200p coins, and
+#adding up the total ways each value can be made using a coin and
+#saving that value and, after that, adding the next higher value.
 
-#Because this is very complicated, an example is useful.  If we 
+#Because this is very complicated, another example is useful.  If we 
 #were interested in making 10 pence, the following steps would
 #be taken.  
 
@@ -34,11 +36,13 @@ How many different ways can £2 be made using any number of coins?
 #number of ways each could be made IF we used the 2p coin.  
 #For example, there is 1 way to make 2 using only 1s, and 1
 #way to make it using the 2p.  The latter value is equal to 
-#the number of ways to make 0, or 2-2, which is equal to 1.
+#the number of ways to make 0, or the remainder of 2/2, which is equal to 1.
 #This process is repeated for 3, which equals 1 way to make with 
 #only ones, and 1 way to make with 1 2 and 1 1, 4, which equals
 #one way to make with 1s and 2 ways to make with 2 (2,1,1 or 2,2), 
-#totaling three.  As the list is updated, the number of ways to 
+#totaling three.  
+
+#As the list is updated, the number of ways to 
 #make a value using a coin are equal to the value WITHOUT the coin
 #plus the value of the element in the list [value-coin], which is the
 #number of ways to make the remainder WITH the coin, or, in other words,
@@ -54,7 +58,7 @@ How many different ways can £2 be made using any number of coins?
 #ways to make 10p.  (Obviously coins higher than the total cannot
 #be used).
 
-#As the program is running, at any given point the list will equal
+#As the program is running, at any given point the list will represent
 #all ways to make a particular number using all coins up to the 
 #coin being cycled through.  So if, for example, the program is at
 #list[17] and is going through the 5p loop, all prior elements in the
@@ -64,7 +68,13 @@ How many different ways can £2 be made using any number of coins?
 #18 using only 2 5p coins) to get the total ways to make 18 with 3 5p
 #coins.  
 
-#My code comes up with the solution, 73682, in .1 seconds.
+#Essentially, this algorithm is nested loop that modifies a lookup
+#table which, after the loops have run, will contain the entires at 
+#each index, n, representing the number of ways to make n using the
+#coins in the "coins" array.  The algorithm is notable because it 
+#uses the results of past loops to generate future loops.
+
+#My code comes up with the solution, 73682, in .0 seconds.
 
 def coinCount(target)
 
