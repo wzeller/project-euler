@@ -10,29 +10,22 @@
 #whose values do not exceed four million, find the sum 
 #of the even-valued terms.
 
-#Script finds correct answer (4613732) in 0.0s.
+#Script finds correct answer (4613732) in 0.1s.
 
 def sumOfEvenFibonacciNumbersUnderN(n)
 
-#first we generate fibonacci sequence under n
+  return 0 if n <= 2 
+ 
+  fibonacci = [0,1]
+  total = 0
 
-fibonacci = [1,2]
+  until fibonacci.last >= n
+  	fibonacci << fibonacci.last + fibonacci[-2]
+  	total += fibonacci[-1] if fibonacci[-1].even? 
+  end
 
-until fibonacci[-1] > n
-
-	fibonacci << fibonacci[-1] + fibonacci[-2]
-	
-end
-
-#removes the last number, which is over the threshold
-fibonacci.delete_at(-1)
-
-#deletes all odd numbers
-fibonacci.delete_if{|x| x.odd?}
-
-#puts the sum of the remaining even fibonacci numbers between 1 and n
-puts fibonacci.inject(:+)
+  total 
 
 end
 
-sumOfEvenFibonacciNumbersUnderN(4000000)
+p sumOfEvenFibonacciNumbersUnderN(4000000)

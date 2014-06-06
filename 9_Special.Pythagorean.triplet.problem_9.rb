@@ -14,14 +14,12 @@
 
 def pythagoreanTriplet
 
-for a in (1..333)
-	for b in (a..500)
+(1..333).each do |a|
+	(a..667).each do |b|
 		if a ** 2 + b ** 2 == ((1000-(a+b))**2) && (1000-(a+b))>b
 			puts a
 			puts b
 			puts (1000-(a+b))
-			puts ""
-			puts a*b*(1000-(a+b))
 		end
 	end
 end

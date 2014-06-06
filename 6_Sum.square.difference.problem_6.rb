@@ -12,21 +12,20 @@
 #Find the difference between the sum of the squares of the first one 
 #hundred natural numbers and the square of the sum.
 
-def sumSquareDifference
-
-#Store sum of squares of 1 through 100 in one variable and sum of 1 through 
-#100 in another.  Square the sum of the numbers and subtract the sum of 
-#squares.
-
 #Produces the correct answer, 25164150, in 0.0 seconds.
 
-for n in (1..100)
-	squares += (n ** 2)
-	sum += n
+def sumSquareDifference
+
+  squares = 0
+  sum = 0
+
+  (1..100).each do |n|
+  	squares += (n ** 2)
+  	sum += n
+  end
+
+  sum ** 2 - squares
+
 end
 
-puts sum ** 2 - squares
-
-end
-
-sumSquareDifference
+p sumSquareDifference

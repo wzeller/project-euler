@@ -11,21 +11,20 @@
 #are reduced by the prime factors (2*3*5*7*11*13*17*19*8*3).  However, for sake of practice I wrote
 #the following code.  The first function tests for divisibility by 1 to 20.
 #The second starts at the product of the primes under 20 and counts up
-#by 19s until a number divisible by 1..20 is found.  The script takes
-#16.7 seconds to find the answer: 232792560.
+#by 19s until a number divisible by 1..20 is found.  
+
+#The script takes around 5.8 seconds to find the answer: 232792560.
 
 def divisibleBy1to20?(number)
 
-#Gets rid of the duplicative factors 
-divisors = [11,13,14,16,17,18,19,20]
+  #Gets rid of the duplicative factors 
+  divisors = [11,13,14,16,17,18,19,20]
 
-for n in divisors
-	if number % n != 0
-		return false
-	end
-end
+  divisors.each do |n|
+  	return false if number % n != 0
+  end
 
-return true
+  true
 end
 
 def findSmallestNumberEvenlyDivisibleBy1to20
@@ -34,19 +33,16 @@ def findSmallestNumberEvenlyDivisibleBy1to20
 #this could be made applicable to any n) is an easy minimum
 #to use in starting the search.
 
-test = 9699690 
+  start = 9699690 
 
-until divisibleBy1to20?(test) == true
+  until divisibleBy1to20?(start)
+    #Increment by the highest prime factor less than 20. 
+    start += 19
+  end
 
-#We increment by the highest prime factor less than n. 
-
-test += 19
-
-end
-
-puts test
+  start
 
 end
 
-findSmallestNumberEvenlyDivisibleBy1to20
+p findSmallestNumberEvenlyDivisibleBy1to20
 
