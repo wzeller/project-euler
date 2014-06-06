@@ -29,45 +29,41 @@ What is the value of the first triangle number to have over five hundred divisor
 #500 factors necessarily has the smallest prime factors, and using the first four
 #is a conservative estimate.
 
-def findFirstTriangleNumberWithOverNDivisors(divisors)
-
 require 'mathn'
 
-a = 1
-b = 0
-x = 0
+def findFirstTriangleNumberWithOverNDivisors(divisors)
 
-#First we generate triangle numbers.  
+  a = 1
+  b = 0
+  x = 0
 
-#Then we test for divisibility by 2, 3, 5 and 7, the first 
-#four prime numbers.  Given we are looking for the smallest number with 500 factors,
-#it necessarily must be divisible by the samllest prime factors, 2, 3, 5, and 7. 
+  #First we generate triangle numbers.  
 
-#Only those numbers that are triangle and divisible by the first 4 primes
-#are tested for number of factors.  To do we usethe prime_division method, 
-#which is a multidimensional array with each entry containing the prime factor 
-#and the power (e.g., [0][0] = lowest prime factor, and [0][1]= the exponent of that factor).  The code below sets
-#b equal to the prime division of x, which is the triangle number being tested, 
-#and then adds 1 to each of the "power" entries (i.e., the[n][1] of each element),
-#then multiplies the resulting numbers together.  This is the formula to determine
-#the number of distinct factors from the prime factorization.
+  #Then we test for divisibility by 2, 3, 5 and 7, the first 
+  #four prime numbers.  Given we are looking for the smallest number with 500 factors,
+  #it necessarily must be divisible by the samllest prime factors, 2, 3, 5, and 7. (If there is no screening, 
+  #it takes around a second).
 
-until b > divisors
+  #Only those numbers that are triangle and divisible by the first 4 primes
+  #are tested for number of factors.  To do we usethe prime_division method, 
+  #which is a multidimensional array with each entry containing the prime factor 
+  #and the power (e.g., [0][0] = lowest prime factor, and [0][1]= the exponent of that factor).  The code below sets
+  #b equal to the prime division of x, which is the triangle number being tested, 
+  #and then adds 1 to each of the "power" entries (i.e., the[n][1] of each element),
+  #then multiplies the resulting numbers together.  This is the formula to determine
+  #the number of distinct factors from the prime factorization.
 
-x = (a*(a+1))/2
+  until !b.nil? && b > divisors
+    x = (a*(a+1))/2
+    
+    if x%2 == 0 && x%3 == 0 && x%5 == 0 && x%7 == 0 
+      b = x.prime_division.map {|arr| arr[1]+1}.inject(:*)
+    end
 
-if x%2 == 0 && x%3 == 0 && x%5 == 0 && x%7 == 0 
+    a += 1
+  end
 
-b = x.prime_division.map {|arr| arr[1]+1}.inject(:*)
-
-end
-
-a += 1
-
-
-end
-
-puts x 
+  puts x 
 
 end
 
